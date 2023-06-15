@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\SacraLingua.Vocalbulary.Infrastructure\\SacraLingua.Vocalbulary.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\Src\\SacraLingua.Vocalbulary.Infrastructure\\SacraLingua.Vocalbulary.Infrastructure.csproj",
       "projectName": "SacraLingua.Vocalbulary.Infrastructure",
-      "projectPath": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\SacraLingua.Vocalbulary.Infrastructure\\SacraLingua.Vocalbulary.Infrastructure.csproj",
+      "projectPath": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\Src\\SacraLingua.Vocalbulary.Infrastructure\\SacraLingua.Vocalbulary.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\Kamil Książek OP\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\SacraLingua.Vocalbulary.Infrastructure\\obj\\",
+      "outputPath": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\Src\\SacraLingua.Vocalbulary.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

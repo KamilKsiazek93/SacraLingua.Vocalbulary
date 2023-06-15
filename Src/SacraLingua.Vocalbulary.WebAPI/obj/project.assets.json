@@ -230,11 +230,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\SacraLingua.Vocalbulary.WebAPI\\SacraLingua.Vocalbulary.WebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\Src\\SacraLingua.Vocalbulary.WebAPI\\SacraLingua.Vocalbulary.WebAPI.csproj",
       "projectName": "SacraLingua.Vocalbulary.WebAPI",
-      "projectPath": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\SacraLingua.Vocalbulary.WebAPI\\SacraLingua.Vocalbulary.WebAPI.csproj",
+      "projectPath": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\Src\\SacraLingua.Vocalbulary.WebAPI\\SacraLingua.Vocalbulary.WebAPI.csproj",
       "packagesPath": "C:\\Users\\Kamil Książek OP\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\SacraLingua.Vocalbulary.WebAPI\\obj\\",
+      "outputPath": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\Src\\SacraLingua.Vocalbulary.WebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

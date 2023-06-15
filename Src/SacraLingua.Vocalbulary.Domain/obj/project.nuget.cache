@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ApwrkMdujixakqL2W2+cg0KLo58ho1XYQipFaMgXnRbq+qvKtfVZqMqPsTTT8cvaNfXhlFEK/JMlgQsgF8nuIw==",
+  "dgSpecHash": "GBLCjx0psR3p5qNJvWmqVoYFkyJt/cijCa/EvFZGXO5pQgrrvcTI2ayDUpmDwK1kScQmgAY+LoUdYiHrU0jfeA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\SacraLingua.Vocalbulary.Domain\\SacraLingua.Vocalbulary.Domain.csproj",
+  "projectFilePath": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\Src\\SacraLingua.Vocalbulary.Domain\\SacraLingua.Vocalbulary.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

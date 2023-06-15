@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bIHbbZNLAn7dbuyADAQGkgL6Dby1r2wZCSGuZg/R7OzcyzAuF3Q/X9dSNNivpHmQypgQP8C0q0ypsBTLM+RfKA==",
+  "dgSpecHash": "p1IjOrIXEmk9eXVMfJFRE8Fj0iN3irxQO/BU6UvTBEjqqvyFWx2bCE8Z3UxRO1Fu/0SGjZ8B0VTacxjaa25I2w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\SacraLingua.Vocalbulary.WebAPI\\SacraLingua.Vocalbulary.WebAPI.csproj",
+  "projectFilePath": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\Src\\SacraLingua.Vocalbulary.WebAPI\\SacraLingua.Vocalbulary.WebAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kamil Książek OP\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\Kamil Książek OP\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",

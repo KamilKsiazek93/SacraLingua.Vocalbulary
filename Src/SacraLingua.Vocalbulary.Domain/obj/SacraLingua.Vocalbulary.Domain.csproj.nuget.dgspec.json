@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\SacraLingua.Vocalbulary.Domain\\SacraLingua.Vocalbulary.Domain.csproj": {}
+    "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\Src\\SacraLingua.Vocalbulary.Domain\\SacraLingua.Vocalbulary.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\SacraLingua.Vocalbulary.Domain\\SacraLingua.Vocalbulary.Domain.csproj": {
+    "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\Src\\SacraLingua.Vocalbulary.Domain\\SacraLingua.Vocalbulary.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\SacraLingua.Vocalbulary.Domain\\SacraLingua.Vocalbulary.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\Src\\SacraLingua.Vocalbulary.Domain\\SacraLingua.Vocalbulary.Domain.csproj",
         "projectName": "SacraLingua.Vocalbulary.Domain",
-        "projectPath": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\SacraLingua.Vocalbulary.Domain\\SacraLingua.Vocalbulary.Domain.csproj",
+        "projectPath": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\Src\\SacraLingua.Vocalbulary.Domain\\SacraLingua.Vocalbulary.Domain.csproj",
         "packagesPath": "C:\\Users\\Kamil Książek OP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\SacraLingua.Vocalbulary.Domain\\obj\\",
+        "outputPath": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\Src\\SacraLingua.Vocalbulary.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
