@@ -88,6 +88,29 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "SacraLingua.Vocalbulary.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/SacraLingua.Vocalbulary.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SacraLingua.Vocalbulary.Domain.dll": {}
+        }
+      },
+      "SacraLingua.Vocalbulary.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "SacraLingua.Vocalbulary.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SacraLingua.Vocalbulary.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SacraLingua.Vocalbulary.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -216,10 +239,22 @@
         "swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
+    },
+    "SacraLingua.Vocalbulary.Domain/1.0.0": {
+      "type": "project",
+      "path": "../SacraLingua.Vocalbulary.Domain/SacraLingua.Vocalbulary.Domain.csproj",
+      "msbuildProject": "../SacraLingua.Vocalbulary.Domain/SacraLingua.Vocalbulary.Domain.csproj"
+    },
+    "SacraLingua.Vocalbulary.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../SacraLingua.Vocalbulary.Infrastructure/SacraLingua.Vocalbulary.Infrastructure.csproj",
+      "msbuildProject": "../SacraLingua.Vocalbulary.Infrastructure/SacraLingua.Vocalbulary.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "SacraLingua.Vocalbulary.Domain >= 1.0.0",
+      "SacraLingua.Vocalbulary.Infrastructure >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.2.3"
     ]
   },
@@ -254,7 +289,14 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\Src\\SacraLingua.Vocalbulary.Domain\\SacraLingua.Vocalbulary.Domain.csproj": {
+              "projectPath": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\Src\\SacraLingua.Vocalbulary.Domain\\SacraLingua.Vocalbulary.Domain.csproj"
+            },
+            "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\Src\\SacraLingua.Vocalbulary.Infrastructure\\SacraLingua.Vocalbulary.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\Src\\SacraLingua.Vocalbulary.Infrastructure\\SacraLingua.Vocalbulary.Infrastructure.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

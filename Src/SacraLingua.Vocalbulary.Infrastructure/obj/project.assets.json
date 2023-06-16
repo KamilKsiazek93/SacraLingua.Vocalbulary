@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {}
+    "net6.0": {
+      "SacraLingua.Vocalbulary.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/SacraLingua.Vocalbulary.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SacraLingua.Vocalbulary.Domain.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "SacraLingua.Vocalbulary.Domain/1.0.0": {
+      "type": "project",
+      "path": "../SacraLingua.Vocalbulary.Domain/SacraLingua.Vocalbulary.Domain.csproj",
+      "msbuildProject": "../SacraLingua.Vocalbulary.Domain/SacraLingua.Vocalbulary.Domain.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0": []
+    "net6.0": [
+      "SacraLingua.Vocalbulary.Domain >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Kamil Książek OP\\.nuget\\packages\\": {},
@@ -37,7 +56,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\Src\\SacraLingua.Vocalbulary.Domain\\SacraLingua.Vocalbulary.Domain.csproj": {
+              "projectPath": "C:\\Users\\Kamil Książek OP\\source\\repos\\SacraLingua.Vocalbulary\\Src\\SacraLingua.Vocalbulary.Domain\\SacraLingua.Vocalbulary.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

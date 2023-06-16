@@ -10,4 +10,18 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Mappers\" />
+    <Folder Include="Models\Responses\" />
+    <Folder Include="Models\Requests\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SacraLingua.Vocalbulary.Domain\SacraLingua.Vocalbulary.Domain.csproj" />
+    <ProjectReference Include="..\SacraLingua.Vocalbulary.Infrastructure\SacraLingua.Vocalbulary.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
