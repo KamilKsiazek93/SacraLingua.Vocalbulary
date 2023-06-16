@@ -23,8 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Src\SacraLingua.Vocalbulary.Domain\SacraLingua.Vocalbulary.Domain.csproj" />
-    <ProjectReference Include="..\Src\SacraLingua.Vocalbulary.Infrastructure\SacraLingua.Vocalbulary.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Src\SacraLingua.Vocalbulary.Domain\SacraLingua.Vocalbulary.Domain.csproj" />
   </ItemGroup>
 
 </Project>
