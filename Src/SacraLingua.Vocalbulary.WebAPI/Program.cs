@@ -16,7 +16,7 @@ internal class Program
         builder.Services.AddSwaggerGen();
         builder.Services.RegisterWebApiAssemblies();
         builder.Services.RegisterDomainAssemblies();
-        builder.Services.RegisterInfrastructureAssemblies();
+        builder.Services.RegisterInfrastructureAssemblies(builder.Configuration);
 
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

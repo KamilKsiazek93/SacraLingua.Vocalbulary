@@ -19,11 +19,4 @@
     <ProjectReference Include="..\SacraLingua.Vocalbulary.Infrastructure\SacraLingua.Vocalbulary.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Mappers\" />
-    <Folder Include="Models\Responses\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
