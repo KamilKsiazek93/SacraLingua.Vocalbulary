@@ -10,8 +10,6 @@
         public string SentencePolishTranslation { get; }
         public string SentenceEnglishTranslation { get; }
 
-        protected GreekWord() { }
-
         public GreekWord(int id, 
             string word, 
             string wordPolishTranslation, 
@@ -21,6 +19,22 @@
             string sentenceEnglishTranslation)
         {
             Id = id;
+            Word = word;
+            WordPolishTranslation = wordPolishTranslation;
+            WordEnglishTranslation = wordEnglishTranslation;
+            Sentence = sentence;
+            SentencePolishTranslation = sentencePolishTranslation;
+            SentenceEnglishTranslation = sentenceEnglishTranslation;
+        }
+
+        public GreekWord(
+            string word,
+            string wordPolishTranslation,
+            string wordEnglishTranslation,
+            string sentence,
+            string sentencePolishTranslation,
+            string sentenceEnglishTranslation)
+        {
             Word = word;
             WordPolishTranslation = wordPolishTranslation;
             WordEnglishTranslation = wordEnglishTranslation;

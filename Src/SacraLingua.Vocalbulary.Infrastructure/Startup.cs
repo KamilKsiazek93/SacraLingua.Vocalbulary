@@ -4,6 +4,8 @@ using SacraLingua.Vocalbulary.Domain.Interfaces.Repositories;
 using SacraLingua.Vocalbulary.Infrastructure.Database;
 using SacraLingua.Vocalbulary.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
+using SacraLingua.Vocalbulary.Domain.Interfaces.Loggers;
+using SacraLingua.Vocalbulary.Infrastructure.Loggers;
 
 namespace SacraLingua.Vocalbulary.Infrastructure
 {
@@ -13,6 +15,8 @@ namespace SacraLingua.Vocalbulary.Infrastructure
         {
             services.AddTransient<IGreekWordRepository, GreekWordRepository>();
             services.AddDbContext<SacraLinguaDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("SacraLinguaDbConnectionString")));
+
+            services.AddTransient<IGreekWordLogger, GreekWordLogger>();
 
             return services;
         }
