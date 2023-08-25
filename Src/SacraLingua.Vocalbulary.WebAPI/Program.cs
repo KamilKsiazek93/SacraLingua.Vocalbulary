@@ -1,12 +1,16 @@
 using SacraLingua.Vocalbulary.WebAPI.Extensions;
 using SacraLingua.Vocalbulary.Domain;
 using SacraLingua.Vocalbulary.Infrastructure;
+using Serilog;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.Host.UseSerilog((context, configuration) =>
+            configuration.ReadFrom.Configuration(context.Configuration));
 
         // Add services to the container.
 
@@ -28,6 +32,8 @@ internal class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        app.UseSerilogRequestLogging();
 
         app.UseHttpsRedirection();
 
