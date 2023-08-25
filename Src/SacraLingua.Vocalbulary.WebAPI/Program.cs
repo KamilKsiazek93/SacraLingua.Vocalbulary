@@ -2,6 +2,7 @@ using SacraLingua.Vocalbulary.WebAPI.Extensions;
 using SacraLingua.Vocalbulary.Domain;
 using SacraLingua.Vocalbulary.Infrastructure;
 using Serilog;
+using SacraLingua.Vocalbulary.WebAPI.Middleware;
 
 internal class Program
 {
@@ -32,6 +33,8 @@ internal class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        app.UseMiddleware<ExceptionMiddleware>();
 
         app.UseSerilogRequestLogging();
 
