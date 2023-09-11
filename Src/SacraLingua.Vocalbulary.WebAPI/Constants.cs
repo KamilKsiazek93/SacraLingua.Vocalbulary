@@ -14,5 +14,9 @@
         /// Users Route
         /// </summary>
         public const string UserRoute = $"{BaseRoute}/users/";
+        /// <summary>
+        /// GreekWords Route
+        /// </summary>
+        public const string GreekWordsRoute = $"{BaseRoute}/greek-words/";
     }
 }

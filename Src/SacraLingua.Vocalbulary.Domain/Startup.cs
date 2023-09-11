@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using SacraLingua.Vocalbulary.Domain.Interfaces.Services;
+using SacraLingua.Vocalbulary.Domain.Services;
 
 namespace SacraLingua.Vocalbulary.Domain
 {
@@ -6,6 +8,7 @@ namespace SacraLingua.Vocalbulary.Domain
     {
         public static IServiceCollection RegisterDomainAssemblies(this IServiceCollection services)
         {
+            services.AddTransient<IGreekWordService, GreekWordService>();
 
             return services;
         }

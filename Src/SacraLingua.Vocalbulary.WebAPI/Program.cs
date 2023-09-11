@@ -1,12 +1,17 @@
 using SacraLingua.Vocalbulary.WebAPI.Extensions;
 using SacraLingua.Vocalbulary.Domain;
 using SacraLingua.Vocalbulary.Infrastructure;
+using Serilog;
+using SacraLingua.Vocalbulary.WebAPI.Middleware;
 
-internal class Program
+public class Program
 {
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.Host.UseSerilog((context, configuration) =>
+            configuration.ReadFrom.Configuration(context.Configuration));
 
         // Add services to the container.
 
@@ -16,7 +21,7 @@ internal class Program
         builder.Services.AddSwaggerGen();
         builder.Services.RegisterWebApiAssemblies();
         builder.Services.RegisterDomainAssemblies();
-        builder.Services.RegisterInfrastructureAssemblies();
+        builder.Services.RegisterInfrastructureAssemblies(builder.Configuration);
 
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -28,6 +33,10 @@ internal class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        app.UseMiddleware<ExceptionMiddleware>();
+
+        app.UseSerilogRequestLogging();
 
         app.UseHttpsRedirection();
 
