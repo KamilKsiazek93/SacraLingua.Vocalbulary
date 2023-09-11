@@ -4,7 +4,7 @@ using SacraLingua.Vocalbulary.Infrastructure;
 using Serilog;
 using SacraLingua.Vocalbulary.WebAPI.Middleware;
 
-internal class Program
+public class Program
 {
     private static void Main(string[] args)
     {
