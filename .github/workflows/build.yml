@@ -1,4 +1,4 @@
-name: Build and Test
+name: Build and Deploy
 
 on:
   push:
@@ -27,3 +27,13 @@ jobs:
 
       - name: Run tests
         run: dotnet test --configuration Release --no-build
+    
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy
+        run: npx netlify-cli deploy
