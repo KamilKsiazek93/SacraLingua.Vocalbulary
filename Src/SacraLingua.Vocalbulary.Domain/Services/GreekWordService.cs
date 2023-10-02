@@ -18,6 +18,29 @@ namespace SacraLingua.Vocalbulary.Domain.Services
             _logger = logger;
         }
 
+        /// <summary>
+        /// Add new greek Word
+        /// </summary>
+        /// <param name="greekWord">Greek Word object with all data filled</param>
+        /// <returns>Created Greek Word</returns>
+        public async Task<GreekWord> AddGreekWordAsync(GreekWord greekWord)
+        {
+            try
+            {
+                return await _greekWordRepository.AddGreekWordAsync(greekWord);
+            }
+            catch(Exception exception)
+            {
+                _logger.LogErrorAddGreekWord(greekWord, exception);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get Greek Word when thanks to ID
+        /// </summary>
+        /// <param name="id">Id of Greek Word</param>
+        /// <returns>GreekWordResponse</returns>
         public async Task<GreekWord> GetGreekWordByIdAsync(int id)
         {
             VerifyId(id);
