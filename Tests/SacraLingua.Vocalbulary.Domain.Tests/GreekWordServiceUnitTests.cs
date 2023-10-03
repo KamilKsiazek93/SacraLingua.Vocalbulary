@@ -46,7 +46,6 @@ namespace SacraLingua.Vocalbulary.Domain.Tests
             GreekWord greekWord = await service.GetGreekWordByIdAsync(1);
 
             // Assert
-            Assert.Equal(1, greekWord.Id);
             Assert.Equal("agape", greekWord.Word);
             Assert.Equal("mi³oœæ", greekWord.WordPolishTranslation);
             Assert.Equal("love", greekWord.WordEnglishTranslation);
@@ -56,6 +55,6 @@ namespace SacraLingua.Vocalbulary.Domain.Tests
         }
 
         private GreekWord GetSingleGreekWord()
-            => new GreekWord(1, "agape", "mi³oœæ", "love", "Theos agape estis", "Bóg jest mi³oœci¹", "God is love");
+            => new GreekWord("agape", "mi³oœæ", "love", "Theos agape estis", "Bóg jest mi³oœci¹", "God is love");
     }
 }
