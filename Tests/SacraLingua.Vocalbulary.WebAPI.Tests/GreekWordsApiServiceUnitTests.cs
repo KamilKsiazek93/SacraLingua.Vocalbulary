@@ -26,7 +26,6 @@ namespace SacraLingua.Vocalbulary.WebAPI.Tests
             GreekWordResponse response = await service.GetGreekWordByIdAsync(1);
 
             // Assert
-            Assert.Equal(1, response.Id);
             Assert.Equal("agape", response.Word);
             Assert.Equal("miłość", response.WordPolishTranslation);
             Assert.Equal("love", response.WordEnglishTranslation);
@@ -47,6 +46,6 @@ namespace SacraLingua.Vocalbulary.WebAPI.Tests
         }
 
         private GreekWord GetGreekWordById(int id)
-            => new GreekWord(1, "agape", "miłość", "love", "Theos agape estis", "Bóg jest miłością", "God is love");
+            => new GreekWord("agape", "miłość", "love", "Theos agape estis", "Bóg jest miłością", "God is love");
     }
 }
