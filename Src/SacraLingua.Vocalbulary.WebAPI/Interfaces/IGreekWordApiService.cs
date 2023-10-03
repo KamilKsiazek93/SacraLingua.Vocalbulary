@@ -1,9 +1,17 @@
-﻿using SacraLingua.Vocalbulary.WebAPI.Models.Responses;
+﻿using SacraLingua.Vocalbulary.WebAPI.Models.Requests;
+using SacraLingua.Vocalbulary.WebAPI.Models.Responses;
 
 namespace SacraLingua.Vocalbulary.WebAPI.Interfaces
 {
     public interface IGreekWordApiService
     {
+        /// <summary>
+        /// Add new greek Word
+        /// </summary>
+        /// <param name="greekWord">Greek Word object with all data filled</param>
+        /// <returns>Created Greek Word</returns>
+        Task<GreekWordResponse> AddGreekWordAsync(GreekWordRequest greekWord);
+
         /// <summary>
         /// Get Greek Word when thanks to ID
         /// </summary>

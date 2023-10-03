@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SacraLingua.Vocalbulary.WebAPI.Interfaces;
+using SacraLingua.Vocalbulary.WebAPI.Models.Requests;
 using SacraLingua.Vocalbulary.WebAPI.Models.Responses;
 
 namespace SacraLingua.Vocalbulary.WebAPI.Controllers
@@ -16,8 +17,22 @@ namespace SacraLingua.Vocalbulary.WebAPI.Controllers
             _greekWordApiService = greekWordApiService;
         }
 
+        /// <summary>
+        /// Get Greek Word when thanks to ID
+        /// </summary>
+        /// <param name="greekWordId">Id of Greek Word</param>
+        /// <returns>GreekWordResponse</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<GreekWordResponse>> GetGreekWordByIdAsync([FromRoute] int id)
             => await _greekWordApiService.GetGreekWordByIdAsync(id);
+
+        /// <summary>
+        /// Add new greek Word
+        /// </summary>
+        /// <param name="greekWord">Greek Word object with all data filled</param>
+        /// <returns>Created Greek Word</returns>
+        [HttpPost]
+        public async Task<ActionResult<GreekWordResponse>> AddGreekWordAsync([FromBody] GreekWordRequest greekWord)
+            => await _greekWordApiService.AddGreekWordAsync(greekWord);
     }
 }

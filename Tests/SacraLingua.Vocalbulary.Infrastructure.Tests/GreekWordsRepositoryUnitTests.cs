@@ -57,7 +57,7 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Tests
         private List<GreekWord> GetGreekWords()
             => new List<GreekWord>
             {
-                new GreekWord(1, "agape", "miłość", "love", "Theos agape estis", "Bóg jest miłością", "God is love")
+                new GreekWord("agape", "miłość", "love", "Theos agape estis", "Bóg jest miłością", "God is love")
             };
     }
 }

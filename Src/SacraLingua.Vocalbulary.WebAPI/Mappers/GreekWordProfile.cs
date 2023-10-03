@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SacraLingua.Vocalbulary.Domain.Entities;
+using SacraLingua.Vocalbulary.WebAPI.Models.Requests;
 using SacraLingua.Vocalbulary.WebAPI.Models.Responses;
 
 namespace SacraLingua.Vocalbulary.WebAPI.Mappers
@@ -9,6 +10,7 @@ namespace SacraLingua.Vocalbulary.WebAPI.Mappers
         public GreekWordProfile()
         {
             CreateMap<GreekWord, GreekWordResponse>();
+            CreateMap<GreekWordRequest, GreekWord>();
         }
     }
 }

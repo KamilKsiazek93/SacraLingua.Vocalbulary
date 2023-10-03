@@ -24,11 +24,20 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Loggers
 
         public void LogErrorGetGreekWordById(object greekWordId, Exception exception)
             => _logger.LogError($"Error occured during getting greek word by id: {greekWordId}. Application thrown exception: {exception}");
-
         public void LogFinishGetGreekWordById(object greekWordId, GreekWord greekWord)
             => _logger.LogInformation($"Finish proceeding request for getting greek word by id: {greekWordId}. Result: {JsonSerializer.Serialize(greekWord, _options)}");
 
         public void LogStartGetGreekWordById(object greekWordId)
             => _logger.LogInformation($"Start proceeding request for getting greek word by id: {greekWordId}");
+
+        public void LogErrorAddGreekWord(object greekWordRequest, Exception exception)
+            => _logger.LogError($"Error occured during adding greek word with passed object: {JsonSerializer.Serialize(greekWordRequest)}. Application thrown exception: {exception}");
+
+        public void LogStartAddGreekWord(object greekWordRequest)
+            => _logger.LogInformation($"Start proceeding request for adding greek word with passed object: {JsonSerializer.Serialize(greekWordRequest)}");
+
+        public void LogFinishAddGreekWord(object greekWordRequest, GreekWord greekWord)
+            => _logger.LogInformation($"Finish proceeding request for adding greek word with passed object: {JsonSerializer.Serialize(greekWordRequest)}. Result: {JsonSerializer.Serialize(greekWord, _options)}");
+
     }
 }
