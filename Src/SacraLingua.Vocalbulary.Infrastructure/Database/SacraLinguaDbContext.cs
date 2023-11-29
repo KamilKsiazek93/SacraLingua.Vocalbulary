@@ -20,11 +20,19 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Database
                 entity.ToTable("GreekWords");
                 entity.HasKey(x => x.Id);
                 entity.Property(x => x.Word).HasColumnName("Word");
-                entity.Property(x => x.WordPolishTranslation).HasColumnName("PolishTranslation");
-                entity.Property(x => x.WordEnglishTranslation).HasColumnName("EnglishTranslation");
                 entity.Property(x => x.Sentence).HasColumnName("Sentence");
-                entity.Property(x => x.SentencePolishTranslation).HasColumnName("PolishSentence");
-                entity.Property(x => x.SentenceEnglishTranslation).HasColumnName("EnglishSentence");
+                entity.Property(x => x.IsDeleted).HasColumnName("IsDeleted");
+                entity.HasMany(x => x.Translations).WithOne().HasForeignKey(x => x.GreekWordId);
+            });
+
+            modelBuilder.Entity<GreekWordsTranslations>(entity =>
+            {
+                entity.ToTable("GreekWordsTranslations");
+                entity.HasKey(x => x.Id);
+                entity.Property(x => x.GreekWordId).HasColumnName("GreekWordId");
+                entity.Property(x => x.To).HasColumnName("To");
+                entity.Property(x => x.Word).HasColumnName("Word");
+                entity.Property(x => x.Sentence).HasColumnName("Sentence");
             });
         }
     }
