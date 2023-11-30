@@ -24,14 +24,16 @@ namespace SacraLingua.Vocalbulary.WebAPI.Tests
 
             // Act
             GreekWordResponse response = await service.GetGreekWordByIdAsync(1);
+            GreekWordTranslationResponse polishTranslation = response.Translations.First(x => x.To == "POL");
+            GreekWordTranslationResponse englishTranslation = response.Translations.First(x => x.To == "ENG");
 
             // Assert
             Assert.Equal("agape", response.Word);
-            Assert.Equal("miłość", response.WordPolishTranslation);
-            Assert.Equal("love", response.WordEnglishTranslation);
+            Assert.Equal("miłość", polishTranslation.Word);
             Assert.Equal("Theos agape estis", response.Sentence);
-            Assert.Equal("Bóg jest miłością", response.SentencePolishTranslation);
-            Assert.Equal("God is love", response.SentenceEnglishTranslation);
+            Assert.Equal("Bóg jest miłością", polishTranslation.Sentence);
+            Assert.Equal("love", englishTranslation.Word);
+            Assert.Equal("God is love", englishTranslation.Sentence);
         }
 
         private IGreekWordService GetGreekWordService()
@@ -46,6 +48,15 @@ namespace SacraLingua.Vocalbulary.WebAPI.Tests
         }
 
         private GreekWord GetGreekWordById(int id)
-            => new GreekWord("agape", "miłość", "love", "Theos agape estis", "Bóg jest miłością", "God is love");
+        {
+            GreekWord greekWord = new GreekWord("agape", "Theos agape estis", false);
+            greekWord.Translations = new List<GreekWordsTranslations>()
+            {
+                new GreekWordsTranslations() { GreekWordId = id, To = "POL", Word = "miłość", Sentence = "Bóg jest miłością" },
+                new GreekWordsTranslations() { GreekWordId = id, To = "ENG", Word = "love", Sentence = "God is love" }
+            };
+
+            return greekWord;
+        }
     }
 }

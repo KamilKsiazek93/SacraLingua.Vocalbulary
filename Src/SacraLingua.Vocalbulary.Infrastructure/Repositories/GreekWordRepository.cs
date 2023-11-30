@@ -34,7 +34,11 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Repositories
         /// <returns>GreekWordResponse</returns>
         public async Task<GreekWord> GetGreekWordByIdAsync(int id)
         {
-            return await _dbContext.GreekWords.SingleOrDefaultAsync(x => x.Id == id)
+            GreekWord? greekWord = await _dbContext.GreekWords
+                .Include(x => x.Translations)
+                .SingleOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
+
+            return greekWord
                 ?? throw new DomainEntityNotFoundException(typeof(GreekWord).Name, id);
         }
     }

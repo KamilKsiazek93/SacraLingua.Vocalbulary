@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Moq;
 using SacraLingua.Vocalbulary.Domain.Entities;
 using SacraLingua.Vocalbulary.Domain.Exceptions;
 using SacraLingua.Vocalbulary.Domain.Interfaces.Repositories;
@@ -19,15 +18,16 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Tests
 
             // Act
             GreekWord greekWord = await repository.GetGreekWordByIdAsync(1);
+            GreekWordsTranslations polishTranslation = greekWord.Translations.First(x => x.To == "POL");
+            GreekWordsTranslations englishTranslation = greekWord.Translations.First(x => x.To == "ENG");
 
             // Assert
-            Assert.Equal(1, greekWord.Id);
             Assert.Equal("agape", greekWord.Word);
-            Assert.Equal("miłość", greekWord.WordPolishTranslation);
-            Assert.Equal("love", greekWord.WordEnglishTranslation);
             Assert.Equal("Theos agape estis", greekWord.Sentence);
-            Assert.Equal("Bóg jest miłością", greekWord.SentencePolishTranslation);
-            Assert.Equal("God is love", greekWord.SentenceEnglishTranslation);
+            Assert.Equal("miłość", polishTranslation.Word);
+            Assert.Equal("Bóg jest miłością", polishTranslation.Sentence);
+            Assert.Equal("love", englishTranslation.Word);
+            Assert.Equal("God is love", englishTranslation.Sentence);
         }
 
         [Fact]
@@ -57,7 +57,19 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Tests
         private List<GreekWord> GetGreekWords()
             => new List<GreekWord>
             {
-                new GreekWord("agape", "miłość", "love", "Theos agape estis", "Bóg jest miłością", "God is love")
+                GetSingleGreekWord()
             };
+
+        private GreekWord GetSingleGreekWord()
+        {
+            GreekWord greekWord = new GreekWord("agape", "Theos agape estis", false);
+            greekWord.Translations = new List<GreekWordsTranslations>()
+            {
+                new GreekWordsTranslations() { To = "POL", Word = "miłość", Sentence = "Bóg jest miłością" },
+                new GreekWordsTranslations() { To = "ENG", Word = "love", Sentence = "God is love" }
+            };
+
+            return greekWord;
+        }
     }
 }
