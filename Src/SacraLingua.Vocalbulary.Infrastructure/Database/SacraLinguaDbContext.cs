@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SacraLingua.Vocalbulary.Domain.Entities;
 
 namespace SacraLingua.Vocalbulary.Infrastructure.Database
@@ -21,7 +22,7 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Database
                 entity.HasKey(x => x.Id);
                 entity.Property(x => x.Word).HasColumnName("Word");
                 entity.Property(x => x.Sentence).HasColumnName("Sentence");
-                entity.Property(x => x.IsDeleted).HasColumnName("IsDeleted");
+                entity.Property(x => x.IsDeleted).HasColumnName("IsDeleted").HasColumnType("tinyint").HasConversion<byte>();
                 entity.HasMany(x => x.Translations).WithOne().HasForeignKey(x => x.GreekWordId);
             });
 
