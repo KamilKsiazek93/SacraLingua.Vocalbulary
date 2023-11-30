@@ -5,6 +5,15 @@ namespace SacraLingua.Vocalbulary.IntegrationTests.Mocks.DataFactories
     internal static class GreekWordsFactory
     {
         public static GreekWord CreateSingle()
-            => new GreekWord("agape", "miłość", "love", "Theos agape estis", "Bóg jest miłością", "God is love");
+        {
+            GreekWord greekWord = new GreekWord("agape", "Theos agape estis", false);
+            greekWord.Translations = new List<GreekWordsTranslations>()
+            {
+                new GreekWordsTranslations() { To = "POL", Word = "miłość", Sentence = "Bóg jest miłością" },
+                new GreekWordsTranslations() { To = "ENG", Word = "love", Sentence = "God is love" }
+            };
+
+            return greekWord;
+        }
     }
 }

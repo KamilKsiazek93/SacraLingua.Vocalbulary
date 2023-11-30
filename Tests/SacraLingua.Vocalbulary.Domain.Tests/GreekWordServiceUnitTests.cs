@@ -44,17 +44,28 @@ namespace SacraLingua.Vocalbulary.Domain.Tests
 
             // Act 
             GreekWord greekWord = await service.GetGreekWordByIdAsync(1);
+            GreekWordsTranslations polishTranslation = greekWord.Translations.First(x => x.To == "POL");
+            GreekWordsTranslations englishTranslation = greekWord.Translations.First(x => x.To == "ENG");
 
             // Assert
             Assert.Equal("agape", greekWord.Word);
-            Assert.Equal("mi³oœæ", greekWord.WordPolishTranslation);
-            Assert.Equal("love", greekWord.WordEnglishTranslation);
             Assert.Equal("Theos agape estis", greekWord.Sentence);
-            Assert.Equal("Bóg jest mi³oœci¹", greekWord.SentencePolishTranslation);
-            Assert.Equal("God is love", greekWord.SentenceEnglishTranslation);
+            Assert.Equal("mi³oœæ", polishTranslation.Word);
+            Assert.Equal("Bóg jest mi³oœci¹", polishTranslation.Sentence);
+            Assert.Equal("love", englishTranslation.Word);
+            Assert.Equal("God is love", englishTranslation.Sentence);
         }
 
         private GreekWord GetSingleGreekWord()
-            => new GreekWord("agape", "mi³oœæ", "love", "Theos agape estis", "Bóg jest mi³oœci¹", "God is love");
+        {
+            GreekWord greekWord = new GreekWord("agape", "Theos agape estis", false);
+            greekWord.Translations = new List<GreekWordsTranslations>()
+            {
+                new GreekWordsTranslations() { To = "POL", Word = "mi³oœæ", Sentence = "Bóg jest mi³oœci¹" },
+                new GreekWordsTranslations() { To = "ENG", Word = "love", Sentence = "God is love" }
+            };
+
+            return greekWord;
+        }
     }
 }
