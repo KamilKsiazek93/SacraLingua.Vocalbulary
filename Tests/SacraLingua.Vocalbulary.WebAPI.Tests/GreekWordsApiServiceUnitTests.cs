@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Moq;
 using SacraLingua.Vocalbulary.Domain.Entities;
+using SacraLingua.Vocalbulary.Domain.Filters;
 using SacraLingua.Vocalbulary.Domain.Interfaces.Loggers;
 using SacraLingua.Vocalbulary.Domain.Interfaces.Services;
 using SacraLingua.Vocalbulary.WebAPI.Interfaces;
 using SacraLingua.Vocalbulary.WebAPI.Mappers;
+using SacraLingua.Vocalbulary.WebAPI.Models.Requests;
 using SacraLingua.Vocalbulary.WebAPI.Models.Responses;
 using SacraLingua.Vocalbulary.WebAPI.Services;
 
@@ -36,6 +38,28 @@ namespace SacraLingua.Vocalbulary.WebAPI.Tests
             Assert.Equal("God is love", englishTranslation.Sentence);
         }
 
+        [Fact]
+        public async Task When_GetGreekWordsAsync_Response_Is_PagedResponse_Of_GreekWords()
+        {
+            // Arrange
+            GreekWordFilterRequest filter = new() { Page = 1 };
+            var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile(new GreekWordProfile()));
+            IGreekWordApiService service = new GreekWordApiService(
+                GetGreekWordService(),
+                new Mock<IGreekWordLogger>().Object,
+                mapperConfiguration.CreateMapper());
+
+            // Act
+            PagedResponse<GreekWordResponse> response = await service.GetGreekWordAsync(filter);
+
+            // Assert
+            Assert.Equal(1, response.Page);
+            Assert.Equal(5, response.PageSize);
+            Assert.Equal(1, response.TotalItem);
+            Assert.Equal(1, response.NumberOfPages);
+            Assert.Single(response.Items);
+        }
+
         private IGreekWordService GetGreekWordService()
         {
             Mock<IGreekWordService> service = new();
@@ -44,10 +68,14 @@ namespace SacraLingua.Vocalbulary.WebAPI.Tests
                 .Setup(x => x.GetGreekWordByIdAsync(It.IsAny<int>()))
                 .Returns(Task.FromResult(GetGreekWordById(1)));
 
+            service
+                .Setup(x => x.GetGreekWordAsync(It.IsAny<GreekWordFilter>()))
+                .Returns(Task.FromResult(GetPagedResultOfGreekWords()));
+
             return service.Object;
         }
 
-        private GreekWord GetGreekWordById(int id)
+        private static GreekWord GetGreekWordById(int id)
         {
             GreekWord greekWord = new GreekWord("agape", "Theos agape estis", false);
             greekWord.Translations = new List<GreekWordsTranslations>()
@@ -58,5 +86,14 @@ namespace SacraLingua.Vocalbulary.WebAPI.Tests
 
             return greekWord;
         }
+
+        private static PagedResult<GreekWord> GetPagedResultOfGreekWords()
+            => new PagedResult<GreekWord>(GetListOfGreekWords(), 1, 5, 1);
+
+        private static IReadOnlyList<GreekWord> GetListOfGreekWords()
+            => new List<GreekWord>()
+            {
+                GetGreekWordById(1)
+            };
     }
 }
