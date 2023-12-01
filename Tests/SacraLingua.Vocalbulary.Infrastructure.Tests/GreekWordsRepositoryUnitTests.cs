@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SacraLingua.Vocalbulary.Domain.Entities;
 using SacraLingua.Vocalbulary.Domain.Exceptions;
+using SacraLingua.Vocalbulary.Domain.Filters;
 using SacraLingua.Vocalbulary.Domain.Interfaces.Repositories;
 using SacraLingua.Vocalbulary.Infrastructure.Database;
 using SacraLingua.Vocalbulary.Infrastructure.Repositories;
@@ -40,7 +41,24 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Tests
             await Assert.ThrowsAsync<DomainEntityNotFoundException>(() => repository.GetGreekWordByIdAsync(0));
         }
 
-        private SacraLinguaDbContext GetDbContext()
+        [Theory]
+        [InlineData("agape", 1)]
+        [InlineData("pistis", 1)]
+        [InlineData(null, 2)]
+        public async Task When_GetGreekWordAsync_Then_Result_Should_Contain_Matching_GreekWords(string queryWord, int expectedItemsCount)
+        {
+            // Arrange
+            GreekWordFilter filter = new GreekWordFilter() { Word = queryWord, Page = 1, PageSize = 25 };
+            IGreekWordRepository repository = new GreekWordRepository(GetDbContext());
+
+            // Act
+            PagedResult<GreekWord> result = await repository.GetGreekWordAsync(filter);
+
+            // Assert
+            Assert.Equal(expectedItemsCount, result.Items.Count);
+        }
+
+        private static SacraLinguaDbContext GetDbContext()
         {
             var options = new DbContextOptionsBuilder<SacraLinguaDbContext>()
                 .UseInMemoryDatabase(databaseName: "SacraLingua")
@@ -54,19 +72,32 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Tests
             return dbContext;
         }
 
-        private List<GreekWord> GetGreekWords()
+        private static List<GreekWord> GetGreekWords()
             => new List<GreekWord>
             {
-                GetSingleGreekWord()
+                GetAgapeGreekWord(),
+                GetPistisGreekWord()
             };
 
-        private GreekWord GetSingleGreekWord()
+        private static GreekWord GetAgapeGreekWord()
         {
             GreekWord greekWord = new GreekWord("agape", "Theos agape estis", false);
             greekWord.Translations = new List<GreekWordsTranslations>()
             {
                 new GreekWordsTranslations() { To = "POL", Word = "miłość", Sentence = "Bóg jest miłością" },
                 new GreekWordsTranslations() { To = "ENG", Word = "love", Sentence = "God is love" }
+            };
+
+            return greekWord;
+        }
+
+        private static GreekWord GetPistisGreekWord()
+        {
+            GreekWord greekWord = new GreekWord("pistis", "Te gar chariti este sesosmenoi dia pisteos", false);
+            greekWord.Translations = new List<GreekWordsTranslations>()
+            {
+                new GreekWordsTranslations() { To = "POL", Word = "wiara", Sentence = "Albowiem łaską jesteście zbawieni przez wiarę" },
+                new GreekWordsTranslations() { To = "ENG", Word = "faith", Sentence = "For by grace are ye saved through faith" }
             };
 
             return greekWord;

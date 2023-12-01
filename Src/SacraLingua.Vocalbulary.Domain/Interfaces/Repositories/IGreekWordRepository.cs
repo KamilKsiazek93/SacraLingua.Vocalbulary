@@ -1,9 +1,16 @@
 ﻿using SacraLingua.Vocalbulary.Domain.Entities;
+using SacraLingua.Vocalbulary.Domain.Filters;
 
 namespace SacraLingua.Vocalbulary.Domain.Interfaces.Repositories
 {
     public interface IGreekWordRepository
     {
+        /// <summary>
+        /// Get list of greek words
+        /// </summary>
+        /// <param name="filter">Filter criteria</param>
+        /// <returns>List of greek words</returns>
+        Task<PagedResult<GreekWord>> GetGreekWordAsync(GreekWordFilter filter);
         /// <summary>
         /// Add new greek Word
         /// </summary>
