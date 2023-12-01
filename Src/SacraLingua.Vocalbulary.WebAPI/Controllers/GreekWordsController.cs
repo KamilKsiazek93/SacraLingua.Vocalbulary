@@ -18,6 +18,15 @@ namespace SacraLingua.Vocalbulary.WebAPI.Controllers
         }
 
         /// <summary>
+        /// Get List of Greek Words witch query criteria
+        /// </summary>
+        /// <param name="filterRequest">Query criteria</param>
+        /// <returns>List of greek words</returns>
+        [HttpGet]
+        public async Task<ActionResult<PagedResponse<GreekWordResponse>>> GetGreekWordsAsync([FromQuery] GreekWordFilterRequest filterRequest)
+            => await _greekWordApiService.GetGreekWordAsync(filterRequest);
+
+        /// <summary>
         /// Get Greek Word when thanks to ID
         /// </summary>
         /// <param name="greekWordId">Id of Greek Word</param>

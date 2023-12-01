@@ -6,6 +6,12 @@ namespace SacraLingua.Vocalbulary.WebAPI.Interfaces
     public interface IGreekWordApiService
     {
         /// <summary>
+        /// Get List of Greek Word with matching criteria
+        /// </summary>
+        /// <param name="greekWordFilterRequest"></param>
+        /// <returns>List of matching greek words</returns>
+        Task<PagedResponse<GreekWordResponse>> GetGreekWordAsync(GreekWordFilterRequest greekWordFilterRequest);
+        /// <summary>
         /// Add new greek Word
         /// </summary>
         /// <param name="greekWord">Greek Word object with all data filled</param>

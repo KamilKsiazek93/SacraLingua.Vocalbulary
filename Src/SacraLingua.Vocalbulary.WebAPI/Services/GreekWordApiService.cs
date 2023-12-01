@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SacraLingua.Vocalbulary.Domain.Entities;
+using SacraLingua.Vocalbulary.Domain.Filters;
 using SacraLingua.Vocalbulary.Domain.Interfaces.Loggers;
 using SacraLingua.Vocalbulary.Domain.Interfaces.Services;
 using SacraLingua.Vocalbulary.WebAPI.Interfaces;
@@ -42,6 +43,36 @@ namespace SacraLingua.Vocalbulary.WebAPI.Services
             catch(Exception exception)
             {
                 _logger.LogErrorAddGreekWord(greekWordRequest, exception);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get List of Greek Word with matching criteria
+        /// </summary>
+        /// <param name="greekWordFilterRequest"></param>
+        /// <returns>List of matching greek words</returns>
+        public async Task<PagedResponse<GreekWordResponse>> GetGreekWordAsync(GreekWordFilterRequest greekWordFilterRequest)
+        {
+            try
+            {
+                GreekWordFilter filter = _mapper.Map<GreekWordFilter>(greekWordFilterRequest);
+                _logger.LogStarGetListOfGreekWord(filter);
+                PagedResult<GreekWord> result = await _greekWordService.GetGreekWordAsync(filter);
+                _logger.LogFinishGetListOGreekWord(filter, result);
+
+                return new PagedResponse<GreekWordResponse>
+                {
+                    Items = _mapper.Map<IReadOnlyCollection<GreekWord>, List<GreekWordResponse>>(result.Items),
+                    Page = result.Page,
+                    PageSize = result.PageSize,
+                    NumberOfPages = result.NumberOfPages,
+                    TotalItem = result.TotalItems
+                };
+            }
+            catch (Exception exception)
+            {
+                _logger.LogErrorGetListOGreekWord(greekWordFilterRequest, exception);
                 throw;
             }
         }
