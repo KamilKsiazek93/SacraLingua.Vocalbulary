@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SacraLingua.Vocalbulary.Domain.Entities;
 using SacraLingua.Vocalbulary.Domain.Exceptions;
+using SacraLingua.Vocalbulary.Domain.Filters;
 using SacraLingua.Vocalbulary.Domain.Interfaces.Repositories;
 using SacraLingua.Vocalbulary.Infrastructure.Database;
 
@@ -28,6 +29,23 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Repositories
         }
 
         /// <summary>
+        /// Get list of greek words
+        /// </summary>
+        /// <param name="filter">Filter criteria</param>
+        /// <returns>List of greek words</returns>
+        public async Task<PagedResult<GreekWord>> GetGreekWordAsync(GreekWordFilter filter)
+        {
+            IQueryable<GreekWord> greekWords = 
+                _dbContext.GreekWords
+                .Include(x => x.Translations)
+                .Where(x => x.IsDeleted == false);
+
+            greekWords = ApplyFilter(greekWords, filter);
+
+            return GetPagedResultOfGreekWords(greekWords, filter.Page, filter.PageSize);
+        }
+
+        /// <summary>
         /// Get Greek Word when thanks to ID
         /// </summary>
         /// <param name="id">Id of Greek Word</param>
@@ -41,5 +59,20 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Repositories
             return greekWord
                 ?? throw new DomainEntityNotFoundException(typeof(GreekWord).Name, id);
         }
+
+        private IQueryable<GreekWord> ApplyFilter(IQueryable<GreekWord> query, GreekWordFilter filter)
+        {
+            if(filter.Word is not null)
+                query = query.Where(x => x.Word ==  filter.Word);
+            if (filter.Translation is not null)
+                query = query.Where(x => x.Translations.Any(translation => translation.Word == filter.Translation));
+            if (filter.To is not null)
+                query = query.Where(x => x.Translations.Any(translation => translation.To == filter.To));
+
+            return query;
+        }
+
+        private PagedResult<GreekWord> GetPagedResultOfGreekWords(IQueryable<GreekWord> query, int page, int pageSize)
+            => new PagedResult<GreekWord>(query.Skip((page - 1) * pageSize).Take(pageSize).ToList(), query.Count(), pageSize, page);
     }
 }

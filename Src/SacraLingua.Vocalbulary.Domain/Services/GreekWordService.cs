@@ -1,5 +1,6 @@
 ﻿using SacraLingua.Vocalbulary.Domain.Entities;
 using SacraLingua.Vocalbulary.Domain.Exceptions;
+using SacraLingua.Vocalbulary.Domain.Filters;
 using SacraLingua.Vocalbulary.Domain.Interfaces.Loggers;
 using SacraLingua.Vocalbulary.Domain.Interfaces.Repositories;
 using SacraLingua.Vocalbulary.Domain.Interfaces.Services;
@@ -32,6 +33,24 @@ namespace SacraLingua.Vocalbulary.Domain.Services
             catch(Exception exception)
             {
                 _logger.LogErrorAddGreekWord(greekWord, exception);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get List of Greek Word with filter criteria
+        /// </summary>
+        /// <param name="filter">Greek Word Filter</param>
+        /// <returns>Matching greek words</returns>
+        public async Task<PagedResult<GreekWord>> GetGreekWordAsync(GreekWordFilter filter)
+        {
+            try
+            {
+                return await _greekWordRepository.GetGreekWordAsync(filter);
+            }
+            catch (Exception exception)
+            {
+                _logger.LogErrorGetListOGreekWord(filter, exception);
                 throw;
             }
         }
