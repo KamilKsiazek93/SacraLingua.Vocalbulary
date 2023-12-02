@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SacraLingua.Vocalbulary.WebAPI.Interfaces;
 using SacraLingua.Vocalbulary.WebAPI.Models.Requests;
 using SacraLingua.Vocalbulary.WebAPI.Models.Responses;
 
 namespace SacraLingua.Vocalbulary.WebAPI.Controllers
 {
+    [Authorize(Policy = "ReadScopePolicy")]
     [Route(Constants.GreekWordsRoute)]
     [ApiVersion(Constants.ApiVersion)]
     [ApiController]
@@ -40,6 +42,7 @@ namespace SacraLingua.Vocalbulary.WebAPI.Controllers
         /// </summary>
         /// <param name="greekWord">Greek Word object with all data filled</param>
         /// <returns>Created Greek Word</returns>
+        [Authorize(Policy = "WriteScopePolicy")]
         [HttpPost]
         public async Task<ActionResult<GreekWordResponse>> AddGreekWordAsync([FromBody] GreekWordRequest greekWord)
             => await _greekWordApiService.AddGreekWordAsync(greekWord);
