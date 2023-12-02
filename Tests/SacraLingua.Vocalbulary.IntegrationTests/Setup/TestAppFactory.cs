@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization.Policy;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,12 +16,11 @@ namespace SacraLingua.Vocalbulary.IntegrationTests.Setup
         {
             builder.ConfigureServices(services =>
             {
-                // Usuń inne rzeczy, które chcesz dostosować w kontekście testowym
+                services.AddSingleton<IPolicyEvaluator, MockAutorizationPolicy>();
             });
 
             builder.ConfigureServices((context, services) =>
             {
-                // Zarejestruj InMemory DbContext
                 services.AddSingleton<SacraLinguaDbContext>(GetDbContext());
             });
         }
@@ -46,8 +46,7 @@ namespace SacraLingua.Vocalbulary.IntegrationTests.Setup
             {
                 if (disposing)
                 {
-                    // Tutaj możesz dodać kod do czyszczenia zasobów, jeśli to konieczne
-                    // Na przykład, usuwanie InMemoryDbContext.
+
                 }
                 disposed = true;
             }
