@@ -3,6 +3,7 @@ using SacraLingua.Vocalbulary.Domain;
 using SacraLingua.Vocalbulary.Infrastructure;
 using Serilog;
 using SacraLingua.Vocalbulary.WebAPI.Middleware;
+using SacraLingua.Vocalbulary.WebAPI.Authorization;
 
 public class Program
 {
@@ -15,10 +16,13 @@ public class Program
 
         // Add services to the container.
 
+        builder.Services.ConfigureAuthentication(builder.Configuration);
+
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.ConfigureSwaggerUI();
         builder.Services.RegisterWebApiAssemblies();
         builder.Services.RegisterDomainAssemblies();
         builder.Services.RegisterInfrastructureAssemblies(builder.Configuration);
@@ -40,6 +44,7 @@ public class Program
 
         app.UseHttpsRedirection();
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllers();
