@@ -24,5 +24,11 @@ namespace SacraLingua.Vocalbulary.Domain.Interfaces.Services
         /// <param name="greekWordId">Id of Greek Word</param>
         /// <returns>GreekWordResponse</returns>
         Task<GreekWord> GetGreekWordByIdAsync(int id);
+        /// <summary>
+        /// Delete Greek Word thanks to Id
+        /// </summary>
+        /// <param name="greekWordId">Greek Word Identifier</param>
+        /// <returns></returns>
+        Task<GreekWord> DeleteGreekWordAsync(int greekWordId);
     }
 }

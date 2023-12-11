@@ -29,6 +29,26 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Repositories
         }
 
         /// <summary>
+        /// Delete Greek Word thanks to Id
+        /// </summary>
+        /// <param name="greekWordId">Greek Word Identifier</param>
+        /// <returns></returns>
+        public async Task<GreekWord> DeleteGreekWordAsync(int greekWordId)
+        {
+            GreekWord? greekWord = await _dbContext.GreekWords
+               .SingleOrDefaultAsync(x => x.Id == greekWordId && x.IsDeleted == false);
+
+            if(greekWord is null)
+                throw new DomainEntityNotFoundException(typeof(GreekWord).Name, greekWordId);
+
+            greekWord.MarkWordAsDeleted(greekWord);
+
+            await _dbContext.SaveChangesAsync();
+
+            return greekWord;
+        }
+
+        /// <summary>
         /// Get list of greek words
         /// </summary>
         /// <param name="filter">Filter criteria</param>

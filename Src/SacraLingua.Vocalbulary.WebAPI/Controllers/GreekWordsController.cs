@@ -38,6 +38,16 @@ namespace SacraLingua.Vocalbulary.WebAPI.Controllers
             => await _greekWordApiService.GetGreekWordByIdAsync(id);
 
         /// <summary>
+        /// Delete greek word thanks to ID
+        /// </summary>
+        /// <param name="id">Greek Word Identifier</param>
+        /// <returns></returns>
+        [Authorize(Policy = "WriteScopePolicy")]
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<GreekWordResponse>> DeleteGreekWordByIdAsync([FromRoute] int id)
+            => await _greekWordApiService.DeleteGreekWordAsync(id);
+
+        /// <summary>
         /// Add new greek Word
         /// </summary>
         /// <param name="greekWord">Greek Word object with all data filled</param>

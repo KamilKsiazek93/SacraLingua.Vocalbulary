@@ -46,5 +46,14 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Loggers
             => _logger.LogInformation($"Finish proceeding request for getting list of greek words: {JsonSerializer.Serialize(greekWord)}");
         public void LogErrorGetListOGreekWord(object greekWordRequest, Exception exception)
             => _logger.LogError($"Error occured during getting list of greek words. Filter: {JsonSerializer.Serialize(greekWordRequest)}. Application thrown exception: {exception}");
+
+        public void LogStartDeleteGreekWord(object greekWordId)
+            => _logger.LogInformation($"Start proceeding request for delete greek word by id: {greekWordId}");
+
+        public void LogFinishDeleteGreekWord(object greekWordId, GreekWord greekWord)
+            => _logger.LogInformation($"Finish proceeding request for getting greek word by id: {greekWordId}. Deleted word: {JsonSerializer.Serialize(greekWord)}");
+
+        public void LogErrorDeleteGreekWord(object greekWordId, Exception exception)
+            => _logger.LogError($"Error occured during delete greek word by id: {greekWordId}. Application thrown exception: {exception}");
     }
 }

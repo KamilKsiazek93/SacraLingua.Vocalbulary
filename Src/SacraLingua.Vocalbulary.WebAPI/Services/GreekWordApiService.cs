@@ -48,6 +48,28 @@ namespace SacraLingua.Vocalbulary.WebAPI.Services
         }
 
         /// <summary>
+        /// Delete Greek Word thanks to Id
+        /// </summary>
+        /// <param name="greekWordId">Greek Word Identifier</param>
+        /// <returns></returns>
+        public async Task<GreekWordResponse> DeleteGreekWordAsync(int greekWordId)
+        {
+            try
+            {
+                _logger.LogStartDeleteGreekWord(greekWordId);
+                GreekWord greakWordCreated = await _greekWordService.DeleteGreekWordAsync(greekWordId);
+                _logger.LogFinishDeleteGreekWord(greekWordId, greakWordCreated);
+
+                return _mapper.Map<GreekWordResponse>(greakWordCreated);
+            }
+            catch (Exception exception)
+            {
+                _logger.LogErrorDeleteGreekWord(greekWordId, exception);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Get List of Greek Word with matching criteria
         /// </summary>
         /// <param name="greekWordFilterRequest"></param>
