@@ -81,6 +81,40 @@ namespace SacraLingua.Vocalbulary.Domain.Tests
             Assert.Equal(2, result.TotalItems);
         }
 
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        public async Task When_DeleteGreekWordById_And_Id_Is_SmallerOrEqualZero_Then_Exception_Should_Be_Thrown(int id)
+        {
+            // Arrange
+            IGreekWordService service = new GreekWordService(
+                new Mock<IGreekWordRepository>().Object,
+                new Mock<IGreekWordLogger>().Object);
+
+            // Act & Assert
+            await Assert.ThrowsAsync<DomainInvalidIdException>(() => service.DeleteGreekWordAsync(id));
+        }
+
+        [Fact]
+        public async Task When_DeleteGreekWordById_And_Word_Exist_Then_DeletedGreekWord_Should_Be_Retrieved()
+        {
+            // Arrange
+            Mock<IGreekWordRepository> repository = new Mock<IGreekWordRepository>();
+            repository
+                .Setup(x => x.DeleteGreekWordAsync(1))
+                .Returns(Task.FromResult(GetAgapeGreekWord()));
+
+            IGreekWordService service = new GreekWordService(
+                repository.Object,
+                new Mock<IGreekWordLogger>().Object);
+
+            // Act
+            GreekWord word = await service.DeleteGreekWordAsync(1);
+
+            // Assert
+            Assert.Equal("agape", word.Word);
+        }
+
         private static PagedResult<GreekWord> GetPagedResultOfGreekWords()
             => new PagedResult<GreekWord>(GetListOfGreekWords(), 2, 2, 1);
 

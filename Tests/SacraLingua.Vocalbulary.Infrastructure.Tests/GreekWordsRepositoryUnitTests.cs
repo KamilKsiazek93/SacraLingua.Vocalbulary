@@ -58,6 +58,29 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Tests
             Assert.Equal(expectedItemsCount, result.Items.Count);
         }
 
+        [Fact]
+        public async Task When_DeleteGreekWord_Then_GreekWord_Has_IsDeleted_Property_Equal_True()
+        {
+            // Arrange
+            IGreekWordRepository repository = new GreekWordRepository(GetDbContext());
+
+            // Act
+            GreekWord result = await repository.DeleteGreekWordAsync(1);
+
+            // Assert
+            Assert.True(result.IsDeleted);
+        }
+
+        [Fact]
+        public async Task When_DeleteGreekWord_And_WordNotExist_Then_Exception_Should_Be_Thrown()
+        {
+            // Arrange
+            IGreekWordRepository repository = new GreekWordRepository(GetDbContext());
+
+            // Act & Assert
+            await Assert.ThrowsAsync<DomainEntityNotFoundException>(() => repository.DeleteGreekWordAsync(100));
+        }
+
         private static SacraLinguaDbContext GetDbContext()
         {
             var options = new DbContextOptionsBuilder<SacraLinguaDbContext>()

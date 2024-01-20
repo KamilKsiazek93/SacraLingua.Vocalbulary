@@ -36,6 +36,9 @@ namespace SacraLingua.Vocalbulary.WebAPI.Mappers
                 .ForMember(dest => dest.To, opt => opt.MapFrom(src => src.To))
                 .ForMember(dest => dest.Page, opt => opt.MapFrom(src => src.Page))
                 .ForMember(dest => dest.PageSize, opt => opt.MapFrom(src => src.PageSize));
+
+            CreateMap<GreekWordUpdateRequest, GreekWord>()
+                 .ConstructUsing(src => new GreekWord(src.Word, src.Sentence, false));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using SacraLingua.Vocalbulary.Domain.Entities;
 using SacraLingua.Vocalbulary.Domain.Filters;
 using SacraLingua.Vocalbulary.Domain.Interfaces.Loggers;
@@ -43,6 +44,28 @@ namespace SacraLingua.Vocalbulary.WebAPI.Services
             catch(Exception exception)
             {
                 _logger.LogErrorAddGreekWord(greekWordRequest, exception);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Delete Greek Word thanks to Id
+        /// </summary>
+        /// <param name="greekWordId">Greek Word Identifier</param>
+        /// <returns></returns>
+        public async Task<GreekWordResponse> DeleteGreekWordAsync(int greekWordId)
+        {
+            try
+            {
+                _logger.LogStartDeleteGreekWord(greekWordId);
+                GreekWord greakWordCreated = await _greekWordService.DeleteGreekWordAsync(greekWordId);
+                _logger.LogFinishDeleteGreekWord(greekWordId, greakWordCreated);
+
+                return _mapper.Map<GreekWordResponse>(greakWordCreated);
+            }
+            catch (Exception exception)
+            {
+                _logger.LogErrorDeleteGreekWord(greekWordId, exception);
                 throw;
             }
         }
@@ -96,6 +119,31 @@ namespace SacraLingua.Vocalbulary.WebAPI.Services
             catch (Exception exception)
             {
                 _logger.LogErrorGetGreekWordById(greekWordId, exception);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Update greek word
+        /// </summary>
+        /// <param name="id">Greek Word Identifier</param>
+        /// <param name="greekWordRequest">Greek Word Put request</param>
+        /// <returns></returns>
+        public async Task<ActionResult<GreekWordResponse>> UpdateGreekWordAsync(int id, GreekWordUpdateRequest greekWordRequest)
+        {
+            try
+            {
+                _logger.LogStartUpdateGreekWord(id);
+                GreekWord updatedWord = _mapper.Map<GreekWord>(greekWordRequest);
+                GreekWord greekWord = await _greekWordService.UpdateGreekWordAsync(id, updatedWord);
+                GreekWordResponse response = _mapper.Map<GreekWordResponse>(greekWord);
+                _logger.LogFinishUpdateGreekWord(id, greekWord);
+
+                return response;
+            }
+            catch (Exception exception)
+            {
+                _logger.LogErrorUpdateGreekWord(id, exception);
                 throw;
             }
         }
