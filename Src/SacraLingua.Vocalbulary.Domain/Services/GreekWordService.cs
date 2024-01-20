@@ -95,6 +95,27 @@ namespace SacraLingua.Vocalbulary.Domain.Services
             }
         }
 
+        /// <summary>
+        /// Update greek word
+        /// </summary>
+        /// <param name="id">Greek Word Identifier</param>
+        /// <param name="updatedWord">Greek Word Put request</param>
+        /// <returns></returns>
+        public async Task<GreekWord> UpdateGreekWordAsync(int id, GreekWord updatedWord)
+        {
+            VerifyId(id);
+
+            try
+            {
+                return await _greekWordRepository.UpdateGreekWordAsync(id, updatedWord);
+            }
+            catch (Exception exception)
+            {
+                _logger.LogErrorUpdateGreekWord(id, exception);
+                throw;
+            }
+        }
+
         private void VerifyId(int id)
         {
             if (id <= 0)

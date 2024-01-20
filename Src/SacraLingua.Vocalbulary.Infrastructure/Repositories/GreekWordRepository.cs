@@ -36,7 +36,7 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Repositories
         public async Task<GreekWord> DeleteGreekWordAsync(int greekWordId)
         {
             GreekWord? greekWord = await _dbContext.GreekWords
-               .SingleOrDefaultAsync(x => x.Id == greekWordId && x.IsDeleted == false);
+               .SingleOrDefaultAsync(x => x.Id == greekWordId && !x.IsDeleted);
 
             if(greekWord is null)
                 throw new DomainEntityNotFoundException(typeof(GreekWord).Name, greekWordId);
@@ -58,11 +58,11 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Repositories
             IQueryable<GreekWord> greekWords = 
                 _dbContext.GreekWords
                 .Include(x => x.Translations)
-                .Where(x => x.IsDeleted == false);
+                .Where(x => !x.IsDeleted);
 
             greekWords = ApplyFilter(greekWords, filter);
 
-            return GetPagedResultOfGreekWords(greekWords, filter.Page, filter.PageSize);
+            return await GetPagedResultOfGreekWords(greekWords, filter.Page, filter.PageSize);
         }
 
         /// <summary>
@@ -74,10 +74,33 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Repositories
         {
             GreekWord? greekWord = await _dbContext.GreekWords
                 .Include(x => x.Translations)
-                .SingleOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
+                .SingleOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
 
             return greekWord
                 ?? throw new DomainEntityNotFoundException(typeof(GreekWord).Name, id);
+        }
+
+        /// <summary>
+        /// Update greek word
+        /// </summary>
+        /// <param name="id">Greek Word Identifier</param>
+        /// <param name="updatedWord">Greek Word Put request</param>
+        /// <returns></returns>
+        public async Task<GreekWord> UpdateGreekWordAsync(int id, GreekWord updatedWord)
+        {
+            GreekWord? greekWord = await _dbContext.GreekWords
+              .SingleOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
+
+            if (greekWord is null)
+                throw new DomainEntityNotFoundException(typeof(GreekWord).Name, id);
+
+            if(!string.IsNullOrEmpty(updatedWord.Word))
+                greekWord.SetGreekWord(updatedWord.Word);
+            if (!string.IsNullOrEmpty(updatedWord.Sentence))
+                greekWord.SetGreekWordSentence(updatedWord.Sentence);
+
+            await _dbContext.SaveChangesAsync();
+            return greekWord;
         }
 
         private IQueryable<GreekWord> ApplyFilter(IQueryable<GreekWord> query, GreekWordFilter filter)
@@ -92,7 +115,7 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Repositories
             return query;
         }
 
-        private PagedResult<GreekWord> GetPagedResultOfGreekWords(IQueryable<GreekWord> query, int page, int pageSize)
-            => new PagedResult<GreekWord>(query.Skip((page - 1) * pageSize).Take(pageSize).ToList(), query.Count(), pageSize, page);
+        private async Task<PagedResult<GreekWord>> GetPagedResultOfGreekWords(IQueryable<GreekWord> query, int page, int pageSize)
+            => new PagedResult<GreekWord>(await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(), query.Count(), pageSize, page);
     }
 }
