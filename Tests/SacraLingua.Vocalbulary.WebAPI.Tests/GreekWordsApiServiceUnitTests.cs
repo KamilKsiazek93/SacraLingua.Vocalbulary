@@ -60,6 +60,23 @@ namespace SacraLingua.Vocalbulary.WebAPI.Tests
             Assert.Single(response.Items);
         }
 
+        [Fact]
+        public async Task When_DeteleGreekWord_Then_Response_Is_GreekWordResponse()
+        {
+            // Arrange
+            var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile(new GreekWordProfile()));
+            IGreekWordApiService service = new GreekWordApiService(
+                GetGreekWordService(),
+                new Mock<IGreekWordLogger>().Object,
+                mapperConfiguration.CreateMapper());
+
+            // Act
+            GreekWordResponse response = await service.DeleteGreekWordAsync(1);
+
+            // Assert
+            Assert.Equal("agape", response.Word);
+        }
+
         private IGreekWordService GetGreekWordService()
         {
             Mock<IGreekWordService> service = new();
@@ -71,6 +88,10 @@ namespace SacraLingua.Vocalbulary.WebAPI.Tests
             service
                 .Setup(x => x.GetGreekWordAsync(It.IsAny<GreekWordFilter>()))
                 .Returns(Task.FromResult(GetPagedResultOfGreekWords()));
+
+            service
+                .Setup(x => x.DeleteGreekWordAsync(It.IsAny<int>()))
+                .Returns(Task.FromResult(GetGreekWordById(1)));
 
             return service.Object;
         }

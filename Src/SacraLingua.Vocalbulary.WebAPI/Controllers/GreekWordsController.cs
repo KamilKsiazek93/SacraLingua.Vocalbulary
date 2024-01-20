@@ -29,6 +29,16 @@ namespace SacraLingua.Vocalbulary.WebAPI.Controllers
             => await _greekWordApiService.GetGreekWordAsync(filterRequest);
 
         /// <summary>
+        /// Add new greek Word
+        /// </summary>
+        /// <param name="greekWord">Greek Word object with all data filled</param>
+        /// <returns>Created Greek Word</returns>
+        [Authorize(Policy = "WriteScopePolicy")]
+        [HttpPost]
+        public async Task<ActionResult<GreekWordResponse>> AddGreekWordAsync([FromBody] GreekWordRequest greekWord)
+            => await _greekWordApiService.AddGreekWordAsync(greekWord);
+
+        /// <summary>
         /// Get Greek Word when thanks to ID
         /// </summary>
         /// <param name="greekWordId">Id of Greek Word</param>
@@ -38,13 +48,24 @@ namespace SacraLingua.Vocalbulary.WebAPI.Controllers
             => await _greekWordApiService.GetGreekWordByIdAsync(id);
 
         /// <summary>
-        /// Add new greek Word
+        /// Delete greek word thanks to ID
         /// </summary>
-        /// <param name="greekWord">Greek Word object with all data filled</param>
-        /// <returns>Created Greek Word</returns>
+        /// <param name="id">Greek Word Identifier</param>
+        /// <returns></returns>
         [Authorize(Policy = "WriteScopePolicy")]
-        [HttpPost]
-        public async Task<ActionResult<GreekWordResponse>> AddGreekWordAsync([FromBody] GreekWordRequest greekWord)
-            => await _greekWordApiService.AddGreekWordAsync(greekWord);
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<GreekWordResponse>> DeleteGreekWordByIdAsync([FromRoute] int id)
+            => await _greekWordApiService.DeleteGreekWordAsync(id);
+
+        /// <summary>
+        /// Update greek word
+        /// </summary>
+        /// <param name="id">Greek Word Identifier</param>
+        /// <param name="greekWordRequest">Greek Word Put request</param>
+        /// <returns></returns>
+        [Authorize(Policy = "WriteScopePolicy")]
+        [HttpPut("{id}")]
+        public async Task<ActionResult<GreekWordResponse>> UpdateGreekWordAsync([FromRoute] int id, [FromBody] GreekWordUpdateRequest greekWordRequest)
+            => await _greekWordApiService.UpdateGreekWordAsync(id, greekWordRequest);
     }
 }

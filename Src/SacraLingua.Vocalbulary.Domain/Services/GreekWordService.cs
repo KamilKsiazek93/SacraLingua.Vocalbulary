@@ -38,6 +38,26 @@ namespace SacraLingua.Vocalbulary.Domain.Services
         }
 
         /// <summary>
+        /// Delete Greek Word thanks to Id
+        /// </summary>
+        /// <param name="greekWordId">Greek Word Identifier</param>
+        /// <returns></returns>
+        public async Task<GreekWord> DeleteGreekWordAsync(int greekWordId)
+        {
+            VerifyId(greekWordId);
+
+            try
+            {
+                return await _greekWordRepository.DeleteGreekWordAsync(greekWordId);
+            }
+            catch (Exception exception)
+            {
+                _logger.LogErrorDeleteGreekWord(greekWordId, exception);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Get List of Greek Word with filter criteria
         /// </summary>
         /// <param name="filter">Greek Word Filter</param>
@@ -71,6 +91,27 @@ namespace SacraLingua.Vocalbulary.Domain.Services
             catch (Exception exception)
             {
                 _logger.LogErrorGetGreekWordById(id, exception);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Update greek word
+        /// </summary>
+        /// <param name="id">Greek Word Identifier</param>
+        /// <param name="updatedWord">Greek Word Put request</param>
+        /// <returns></returns>
+        public async Task<GreekWord> UpdateGreekWordAsync(int id, GreekWord updatedWord)
+        {
+            VerifyId(id);
+
+            try
+            {
+                return await _greekWordRepository.UpdateGreekWordAsync(id, updatedWord);
+            }
+            catch (Exception exception)
+            {
+                _logger.LogErrorUpdateGreekWord(id, exception);
                 throw;
             }
         }

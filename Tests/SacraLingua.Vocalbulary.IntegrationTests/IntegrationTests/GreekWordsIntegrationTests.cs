@@ -128,9 +128,57 @@ namespace SacraLingua.Vocalbulary.IntegrationTests.IntegrationTests
 
             // Assert
             string stringResponse = await response.Content.ReadAsStringAsync();
-            PagedResponse<GreekWordResponse> greekWordResponse = JsonConvert.DeserializeObject<PagedResponse<GreekWordResponse>>(stringResponse);
+            PagedResponse<GreekWordResponse>? greekWordResponse = JsonConvert.DeserializeObject<PagedResponse<GreekWordResponse>>(stringResponse);
 
             Assert.Single(greekWordResponse.Items);
+        }
+
+        [Fact]
+        public async Task When_DeleteGreekWord_Then_Response_Is_Ok()
+        {
+            // Arrange
+            var factory = new TestAppFactory();
+            var client = factory.CreateClient();
+            await SeedGreekWords(factory);
+
+            // Act
+            HttpResponseMessage response = await client.DeleteAsync($"{GreekWordsUri}/1");
+
+            // Assert
+            Assert.True(response.IsSuccessStatusCode);
+        }
+
+        [Fact]
+        public async Task When_DeleteGreekWord_ByNonExistingId_Then_Response_Is_NotFound()
+        {
+            // Arrange
+            var factory = new TestAppFactory();
+            var client = factory.CreateClient();
+            await SeedGreekWords(factory);
+
+            // Act
+            HttpResponseMessage response = await client.DeleteAsync($"{GreekWordsUri}/100");
+
+            // Assert
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task When_DeleteGreekWord_Response_Contain_GreekWord_With_Id()
+        {
+            // Arrange
+            var factory = new TestAppFactory();
+            var client = factory.CreateClient();
+            await SeedGreekWords(factory);
+
+            // Act
+            HttpResponseMessage response = await client.DeleteAsync($"{GreekWordsUri}/1");
+
+            // Assert
+            string stringResponse = await response.Content.ReadAsStringAsync();
+            GreekWordResponse? greekWordResponse = JsonConvert.DeserializeObject<GreekWordResponse>(stringResponse);
+
+            Assert.Equal(1, greekWordResponse?.Id);
         }
 
         private async Task SeedGreekWords(TestAppFactory factory)
