@@ -115,6 +115,43 @@ namespace SacraLingua.Vocalbulary.Domain.Tests
             Assert.Equal("agape", word.Word);
         }
 
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        public async Task When_UpdateGreekWordByInvalidId_Then_Exception_Should_Be_Thrown(int id)
+        {
+            // Arrange
+            GreekWord request = new GreekWord("newWord", "newSentence", false);
+            IGreekWordService service = new GreekWordService(
+                new Mock<IGreekWordRepository>().Object,
+                new Mock<IGreekWordLogger>().Object);
+
+            // Act & Assert
+            await Assert.ThrowsAsync<DomainInvalidIdException>(() => service.UpdateGreekWordAsync(id, request));
+        }
+
+        [Fact]
+        public async Task When_UpdateGreekWord_Then_UpdatedGreekWord_Is_Returned()
+        {
+            // Arrange
+            GreekWord request = new GreekWord("newWord", "newSentence", false);
+            Mock<IGreekWordRepository> repository = new Mock<IGreekWordRepository>();
+            repository
+                .Setup(x => x.UpdateGreekWordAsync(1, It.IsAny<GreekWord>()))
+                .Returns(Task.FromResult(GetUpdatedGreekWord()));
+
+            IGreekWordService service = new GreekWordService(
+                repository.Object,
+                new Mock<IGreekWordLogger>().Object);
+
+            // Act
+            GreekWord word = await service.UpdateGreekWordAsync(1, request);
+
+            // Assert
+            Assert.Equal("newWord", word.Word);
+            Assert.Equal("newSentence", word.Sentence);
+        }
+
         private static PagedResult<GreekWord> GetPagedResultOfGreekWords()
             => new PagedResult<GreekWord>(GetListOfGreekWords(), 2, 2, 1);
 
@@ -148,5 +185,8 @@ namespace SacraLingua.Vocalbulary.Domain.Tests
 
             return greekWord;
         }
+
+        private static GreekWord GetUpdatedGreekWord()
+            => new GreekWord("newWord", "newSentence", false);
     }
 }

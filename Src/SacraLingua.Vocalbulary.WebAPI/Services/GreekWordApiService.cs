@@ -129,7 +129,7 @@ namespace SacraLingua.Vocalbulary.WebAPI.Services
         /// <param name="id">Greek Word Identifier</param>
         /// <param name="greekWordRequest">Greek Word Put request</param>
         /// <returns></returns>
-        public async Task<ActionResult<GreekWordResponse>> UpdateGreekWordAsync(int id, GreekWordUpdateRequest greekWordRequest)
+        public async Task<GreekWordResponse> UpdateGreekWordAsync(int id, GreekWordUpdateRequest greekWordRequest)
         {
             try
             {

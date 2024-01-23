@@ -38,6 +38,6 @@ namespace SacraLingua.Vocalbulary.WebAPI.Interfaces
         /// <param name="id">Greek Word Identifier</param>
         /// <param name="greekWordRequest">Greek Word Put request</param>
         /// <returns></returns>
-        Task<ActionResult<GreekWordResponse>> UpdateGreekWordAsync(int id, GreekWordUpdateRequest greekWordRequest);
+        Task<GreekWordResponse> UpdateGreekWordAsync(int id, GreekWordUpdateRequest greekWordRequest);
     }
 }
