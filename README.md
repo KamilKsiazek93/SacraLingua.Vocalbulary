@@ -12,6 +12,8 @@ For the moment, along with the word, the client can also download the English an
 |GET|/greek-words/|Get list of greek words based on query criteria|
 |POST|/greek-words/|Add new greek word with list of translations|
 |GET|/greek-words/{id}|Get single greek word thanks to its id|
+|PUT|/greek-words/{id}|Update single greek word thanks to its id and request body|
+|DELETE|/greek-words/{id}|Delete single greek word thanks to its id|
 
 ## Technologies and patterns
 * Onion Architecture
