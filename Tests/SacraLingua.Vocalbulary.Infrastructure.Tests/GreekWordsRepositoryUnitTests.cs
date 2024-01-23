@@ -81,6 +81,33 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Tests
             await Assert.ThrowsAsync<DomainEntityNotFoundException>(() => repository.DeleteGreekWordAsync(100));
         }
 
+        [Fact]
+        public async Task When_UpdateGreekWordByNonExistingId_Then_Exception_Should_Be_Thrown()
+        {
+            // Arrange
+            GreekWord request = new GreekWord("word", "sentence", false);
+            IGreekWordRepository repository = new GreekWordRepository(GetDbContext());
+
+            // Act & Assert
+            await Assert.ThrowsAsync<DomainEntityNotFoundException>(() => repository.UpdateGreekWordAsync(100, request));
+        }
+
+        [Fact]
+        public async Task When_UpdateGreekWord_Then_UpdatedGreekWord_Is_Returned()
+        {
+            // Arrange
+            GreekWord request = new GreekWord("newWord", "newSentence", false);
+            IGreekWordRepository repository = new GreekWordRepository(GetDbContext());
+
+            // Act
+            GreekWord result = await repository.UpdateGreekWordAsync(1, request);
+
+            // Assert
+            Assert.Equal(1, result.Id);
+            Assert.Equal("newWord", result.Word);
+            Assert.Equal("newSentence", result.Sentence);
+        }
+
         private static SacraLinguaDbContext GetDbContext()
         {
             var options = new DbContextOptionsBuilder<SacraLinguaDbContext>()

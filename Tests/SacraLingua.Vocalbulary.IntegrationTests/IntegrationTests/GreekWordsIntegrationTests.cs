@@ -6,6 +6,8 @@ using SacraLingua.Vocalbulary.IntegrationTests.Setup;
 using SacraLingua.Vocalbulary.WebAPI.Models.Requests;
 using SacraLingua.Vocalbulary.WebAPI.Models.Responses;
 using System.Net;
+using System.Text;
+using System.Text.Json;
 using Xunit;
 
 namespace SacraLingua.Vocalbulary.IntegrationTests.IntegrationTests
@@ -179,6 +181,79 @@ namespace SacraLingua.Vocalbulary.IntegrationTests.IntegrationTests
             GreekWordResponse? greekWordResponse = JsonConvert.DeserializeObject<GreekWordResponse>(stringResponse);
 
             Assert.Equal(1, greekWordResponse?.Id);
+        }
+
+        [Fact]
+        public async Task When_UpdateGreekWord_Then_Response_Is_Ok()
+        {
+            // Arrange
+            var factory = new TestAppFactory();
+            var client = factory.CreateClient();
+            await SeedGreekWords(factory);
+            GreekWordUpdateRequest request = new()
+            {
+                Word = "updatedWord",
+                Sentence = "updatedSentence"
+            };
+
+            string jsonString = System.Text.Json.JsonSerializer.Serialize(request, new JsonSerializerOptions());
+            StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+            // Act
+            HttpResponseMessage response = await client.PutAsync($"{GreekWordsUri}/1", httpContent);
+
+            // Assert
+            Assert.True(response.IsSuccessStatusCode);
+        }
+
+        [Fact]
+        public async Task When_UpdateGreekWordByNonExistingId_Then_Response_Is_NotFound()
+        {
+            // Arrange
+            var factory = new TestAppFactory();
+            var client = factory.CreateClient();
+            await SeedGreekWords(factory);
+            GreekWordUpdateRequest request = new()
+            {
+                Word = "updatedWord",
+                Sentence = "updatedSentence"
+            };
+
+            string jsonString = System.Text.Json.JsonSerializer.Serialize(request, new JsonSerializerOptions());
+            StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+            // Act
+            HttpResponseMessage response = await client.PutAsync($"{GreekWordsUri}/100", httpContent);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task When_UpdateGreekWord_Then_Response_Contains_Updated_GreekWord()
+        {
+            var factory = new TestAppFactory();
+            var client = factory.CreateClient();
+            await SeedGreekWords(factory);
+            GreekWordUpdateRequest request = new()
+            {
+                Word = "updatedWord",
+                Sentence = "updatedSentence"
+            };
+
+            string jsonString = System.Text.Json.JsonSerializer.Serialize(request, new JsonSerializerOptions());
+            StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+            // Act
+            HttpResponseMessage response = await client.PutAsync($"{GreekWordsUri}/1", httpContent);
+
+            // Assert
+            string stringResponse = await response.Content.ReadAsStringAsync();
+            GreekWordResponse? greekWordResponse = JsonConvert.DeserializeObject<GreekWordResponse>(stringResponse);
+
+            Assert.Equal(1, greekWordResponse?.Id);
+            Assert.Equal("updatedWord", greekWordResponse?.Word);
+            Assert.Equal("updatedSentence", greekWordResponse?.Sentence);
         }
 
         private async Task SeedGreekWords(TestAppFactory factory)
