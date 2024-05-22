@@ -37,5 +37,11 @@ namespace SacraLingua.Vocalbulary.Domain.Interfaces.Repositories
         /// <param name="updatedWord">Greek Word Put request</param>
         /// <returns></returns>
         Task<GreekWord> UpdateGreekWordAsync(int id, GreekWord updatedWord);
+        /// <summary>
+        /// Get Translation of Greek Word thanks to Id
+        /// </summary>
+        /// <param name="id">Greek Word Identification</param>
+        /// <returns>List of translations</returns>
+        Task<IList<GreekWordsTranslations>> GetGreekWordTranslation(int id);
     }
 }

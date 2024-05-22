@@ -96,6 +96,26 @@ namespace SacraLingua.Vocalbulary.Domain.Services
         }
 
         /// <summary>
+        /// Get Translation of Greek Word thanks to Id
+        /// </summary>
+        /// <param name="id">Greek Word Identification</param>
+        /// <returns>List of translations</returns>
+        public async Task<IList<GreekWordsTranslations>> GetGreekWordTranslation(int id)
+        {
+            VerifyId(id);
+
+            try
+            {
+                return await _greekWordRepository.GetGreekWordTranslation(id);
+            }
+            catch (Exception exception)
+            {
+                _logger.LogErrorGetGreekWordTranslation(id, exception);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Update greek word
         /// </summary>
         /// <param name="id">Greek Word Identifier</param>

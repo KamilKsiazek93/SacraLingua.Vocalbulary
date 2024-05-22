@@ -67,5 +67,14 @@ namespace SacraLingua.Vocalbulary.WebAPI.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<GreekWordResponse>> UpdateGreekWordAsync([FromRoute] int id, [FromBody] GreekWordUpdateRequest greekWordRequest)
             => await _greekWordApiService.UpdateGreekWordAsync(id, greekWordRequest);
+
+        /// <summary>
+        /// Get Translation of Greek Word thanks to Id
+        /// </summary>
+        /// <param name="id">Greek Word Identification</param>
+        /// <returns>List of translations</returns>
+        [HttpGet("{id}/translations")]
+        public async Task<ActionResult<GreekWordTranslationListResponse>> GetGreekTranslationById([FromRoute] int id)
+            => await _greekWordApiService.GetGreekWordTranslation(id);
     }
 }

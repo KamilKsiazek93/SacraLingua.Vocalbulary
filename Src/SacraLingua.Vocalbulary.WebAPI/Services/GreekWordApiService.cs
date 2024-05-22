@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using SacraLingua.Vocalbulary.Domain.Entities;
 using SacraLingua.Vocalbulary.Domain.Filters;
 using SacraLingua.Vocalbulary.Domain.Interfaces.Loggers;
@@ -7,6 +6,7 @@ using SacraLingua.Vocalbulary.Domain.Interfaces.Services;
 using SacraLingua.Vocalbulary.WebAPI.Interfaces;
 using SacraLingua.Vocalbulary.WebAPI.Models.Requests;
 using SacraLingua.Vocalbulary.WebAPI.Models.Responses;
+using System.Collections.Generic;
 
 namespace SacraLingua.Vocalbulary.WebAPI.Services
 {
@@ -144,6 +144,31 @@ namespace SacraLingua.Vocalbulary.WebAPI.Services
             catch (Exception exception)
             {
                 _logger.LogErrorUpdateGreekWord(id, exception);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get Translation of Greek Word thanks to Id
+        /// </summary>
+        /// <param name="id">Greek Word Identification</param>
+        /// <returns>List of translations</returns>
+        public async Task<GreekWordTranslationListResponse> GetGreekWordTranslation(int id)
+        {
+            try
+            {
+                _logger.LogStartGetGreekWordTranslation(id);
+                IList<GreekWordsTranslations> result = await _greekWordService.GetGreekWordTranslation(id);
+                GreekWordTranslationListResponse response = new();
+                response.Translations = _mapper.Map<IList<GreekWordsTranslations>, List<GreekWordTranslationResponse>>(result);
+
+                _logger.LogFinishGetGreekWordTranslation(id, result);
+                return response;
+
+            }
+            catch (Exception exception)
+            {
+                _logger.LogErrorGetGreekWordTranslation(id, exception);
                 throw;
             }
         }
