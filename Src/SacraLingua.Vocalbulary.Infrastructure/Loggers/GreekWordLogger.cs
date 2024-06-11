@@ -65,5 +65,13 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Loggers
         public void LogErrorUpdateGreekWord(object greekWordRequest, Exception exception)
             => _logger.LogError($"Error occured during update greek word with new body: {JsonSerializer.Serialize(greekWordRequest)}. Application thrown exception: {exception}");
 
+        public void LogStartGetGreekWordTranslation(int id)
+            => _logger.LogInformation($"Start proceeding request for getting translations of greek word by id: {id}");
+
+        public void LogErrorGetGreekWordTranslation(int id, Exception exception)
+            => _logger.LogError($"Error occured during getting translations of greek words. GreekWordId: {JsonSerializer.Serialize(id)}. Application thrown exception: {exception}");
+
+        public void LogFinishGetGreekWordTranslation(int id, IList<GreekWordsTranslations> result)
+            => _logger.LogInformation($"Finish proceeding request for getting translations of greek words: {JsonSerializer.Serialize(result)}");
     }
 }

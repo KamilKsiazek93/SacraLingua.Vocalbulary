@@ -81,6 +81,18 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Repositories
         }
 
         /// <summary>
+        /// Get Translation of Greek Word thanks to Id
+        /// </summary>
+        /// <param name="id">Greek Word Identification</param>
+        /// <returns>List of translations</returns>
+        public async Task<IList<GreekWordsTranslations>> GetGreekWordTranslation(int id)
+        {
+                 return await _dbContext.GreekWordsTranslations
+                 .Where(x => x.GreekWordId == id)
+                 .ToListAsync();
+        }
+
+        /// <summary>
         /// Update greek word
         /// </summary>
         /// <param name="id">Greek Word Identifier</param>

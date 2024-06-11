@@ -23,5 +23,8 @@ namespace SacraLingua.Vocalbulary.Domain.Interfaces.Loggers
         void LogStartUpdateGreekWord(object greekWordRequest);
         void LogFinishUpdateGreekWord(object greekWordRequest, GreekWord greekWord);
         void LogErrorUpdateGreekWord(object greekWordRequest, Exception exception);
+        void LogStartGetGreekWordTranslation(int id);
+        void LogFinishGetGreekWordTranslation(int id, IList<GreekWordsTranslations> result);
+        void LogErrorGetGreekWordTranslation(int id, Exception exception);
     }
 }
