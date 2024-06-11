@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SacraLingua.Vocalbulary.WebAPI.Models.Requests;
+﻿using SacraLingua.Vocalbulary.WebAPI.Models.Requests;
 using SacraLingua.Vocalbulary.WebAPI.Models.Responses;
 
 namespace SacraLingua.Vocalbulary.WebAPI.Interfaces
@@ -39,5 +38,12 @@ namespace SacraLingua.Vocalbulary.WebAPI.Interfaces
         /// <param name="greekWordRequest">Greek Word Put request</param>
         /// <returns></returns>
         Task<GreekWordResponse> UpdateGreekWordAsync(int id, GreekWordUpdateRequest greekWordRequest);
+
+        /// <summary>
+        /// Get Translation of Greek Word thanks to Id
+        /// </summary>
+        /// <param name="id">Greek Word Identification</param>
+        /// <returns>List of translations</returns>
+        Task<GreekWordTranslationListResponse> GetGreekWordTranslation(int id);
     }
 }

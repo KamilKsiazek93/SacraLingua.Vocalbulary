@@ -7,6 +7,7 @@ namespace SacraLingua.Vocalbulary.Infrastructure.Database
     public class SacraLinguaDbContext : DbContext
     {
         public virtual DbSet<GreekWord> GreekWords { get; set; }
+        public virtual DbSet<GreekWordsTranslations> GreekWordsTranslations { get; set; }
 
         public SacraLinguaDbContext(DbContextOptions<SacraLinguaDbContext> options)
             : base(options)
