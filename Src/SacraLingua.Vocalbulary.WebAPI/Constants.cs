@@ -22,6 +22,10 @@
         /// </summary>
         public const string GreekWordsRoute = $"{BaseRoute}/greek-words/";
         /// <summary>
+        /// HebrewWords Route
+        /// </summary>
+        public const string HebrewWordsRoute = $"{BaseRoute}/hebrew-words/";
+        /// <summary>
         /// Bearer schema authentication
         /// </summary>
         public const string BearerSchemaAuthentication = "Bearer";

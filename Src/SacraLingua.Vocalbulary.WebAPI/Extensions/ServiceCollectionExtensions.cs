@@ -10,10 +10,12 @@ namespace SacraLingua.Vocalbulary.WebAPI.Extensions
         public static IServiceCollection RegisterWebApiAssemblies(this IServiceCollection services)
         {
             services.AddTransient<IGreekWordApiService, GreekWordApiService>();
+            services.AddTransient<IHebrewWordApiService, HebrewWordApiService>();
 
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile(new GreekWordProfile());
+                cfg.AddProfile(new HebrewWordProfile());
             });
 
             return services;
