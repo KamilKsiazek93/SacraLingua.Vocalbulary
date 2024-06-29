@@ -14,9 +14,11 @@ namespace SacraLingua.Vocalbulary.Infrastructure
         public static IServiceCollection RegisterInfrastructureAssemblies(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddTransient<IGreekWordRepository, GreekWordRepository>();
+            services.AddTransient<IHebrewWordRepository, HebrewWordRepository>();
             services.AddDbContext<SacraLinguaDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("SacraLinguaDbConnectionString")));
 
             services.AddTransient<IGreekWordLogger, GreekWordLogger>();
+            services.AddTransient<IHebrewWordLogger, HebrewWordLogger>();
 
             return services;
         }

@@ -9,6 +9,7 @@ namespace SacraLingua.Vocalbulary.Domain
         public static IServiceCollection RegisterDomainAssemblies(this IServiceCollection services)
         {
             services.AddTransient<IGreekWordService, GreekWordService>();
+            services.AddTransient<IHebrewWordService, HebrewWordService>();
 
             return services;
         }
